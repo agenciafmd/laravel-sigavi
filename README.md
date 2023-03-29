@@ -32,7 +32,7 @@ O campo **email** é obrigatório =)
 Para que o processo funcione pelos **jobs**, é preciso passar os valores dos cookies conforme mostrado abaixo.
 
 ```php
-use Agenciafmd\Rdstation\Jobs\SendConversionsToSigavi;
+use Agenciafmd\Sigavi\Jobs\SendConversionsToSigavi;
 
 $data['email'] = 'milena@fmd.ag';
 $data['nome'] = 'Milena Ramiro';

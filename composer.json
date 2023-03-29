@@ -22,7 +22,7 @@
     "extra": {
         "laravel": {
             "providers": [
-              "SigaviServiceProvider"
+              "Agenciafmd\\Sigavi\\Providers\\SigaviServiceProvider"
             ]
         }
     },
