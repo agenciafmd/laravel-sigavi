@@ -1,6 +1,6 @@
 <?php
 
-namespace Agenciafmd\Rdstation\Providers;
+namespace Agenciafmd\Sigavi\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
