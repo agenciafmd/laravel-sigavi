@@ -1,0 +1,32 @@
+{
+    "name": "agenciafmd/laravel-sigavi",
+    "description": "Integração com a Sigavi",
+    "homepage": "https://github.com/agenciafmd/laravel-sigavi",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Milena Ramiro",
+            "email": "milena.ramiro@fmd.ag",
+            "homepage": "https://fmd.ag/",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "laravel/framework": "6.*|7.*|8.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Agenciafmd\\Sigavi\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+              "SigaviServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
