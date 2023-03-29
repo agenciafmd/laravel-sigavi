@@ -11,6 +11,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Cookie;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -35,6 +36,7 @@ class SendConversionsToSigavi implements ShouldQueue
         }
 
         $client = $this->getClientRequest();
+        $endpoint = config('laravel-sigavi.endpoint') . '/Acesso/Token';
 
         $formParams = [
             'username' => config('laravel-sigavi.username'),
@@ -42,19 +44,34 @@ class SendConversionsToSigavi implements ShouldQueue
             'grant_type' => 'password',
         ];
 
-        $response = $client->request('POST', config('laravel-sigavi.endpoint'), [
-            'headers' => ['Content-type: application/x-www-form-urlencoded'],
-            'form_params' => $formParams,
-        ]);
+        $this->access_token = Cache::remember('access_token', now()->addHours(12),
+            function () use ($client, $endpoint, $formParams) {
+                $response = $client->request('POST', $endpoint, [
+                    'headers' => [
+                        'Content-Type' => 'application/x-www-form-urlencoded'
+                    ],
+                    'form_params' => $formParams
+                ]);
 
-//        dd($response->getBody()->getContents());
+                $responseBody = json_decode($response->getBody());
+                return $responseBody->access_token;
+            });
 
         $this->sendConversion();
     }
 
     private function sendConversion()
     {
+        $client = $this->getClientRequest();
+        $endpoint = config('laravel-sigavi.endpoint') . '/Leads/NovaLead';
 
+        $client->request('POST', $endpoint, [
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'Authorization' => 'bearer ' . $this->access_token
+            ],
+            'json' => $this->data
+        ]);
     }
 
     private function getClientRequest()
