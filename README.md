@@ -21,6 +21,7 @@ Para que a integração seja realizada, precisamos do **endpoint, username e sen
 SIGAVI_ENDPOINT=endpoint da api
 SIGAVI_USERNAME=username
 SIGAVI_PASSWORD=sua senha
+SIVAGI_ORIGEM=string que identifica a origem
 ```
 
 ## Uso

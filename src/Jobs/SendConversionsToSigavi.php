@@ -63,7 +63,13 @@ class SendConversionsToSigavi implements ShouldQueue
     private function sendConversion()
     {
         $client = $this->getClientRequest();
-        $endpoint = config('laravel-sigavi.endpoint') . '/Leads/NovaLead';
+
+        $queryParam = '';
+        if (config('laravel-sigavi.origem')){
+            $queryParam = '?origem=' . config('laravel-sigavi.origem');
+        }
+
+        $endpoint = config('laravel-sigavi.endpoint') . '/Leads/NovaLead' . $queryParam;
 
         $client->request('POST', $endpoint, [
             'headers' => [
