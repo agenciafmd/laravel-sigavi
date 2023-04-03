@@ -69,7 +69,7 @@ class SendConversionsToSigavi implements ShouldQueue
             $queryParam = '?origem=' . config('laravel-sigavi.origem');
         }
 
-        $endpoint = config('laravel-sigavi.endpoint') . '/Leads/NovaLead' . $queryParam;
+        $endpoint = config('laravel-sigavi.endpoint') . '/Leads/Integracao' . $queryParam;
 
         $client->request('POST', $endpoint, [
             'headers' => [
